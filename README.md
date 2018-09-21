@@ -1,7 +1,7 @@
-# mongoose-query-parser
+# gb-mongoose-query-parser
 
-[![NPM version][npm-image]][npm-url]
-[![Downloads][download-badge]][npm-url]
+
+#### This is a fork from: [mongooose-quey-parser](https://github.com/leodinas-hao/mongoose-query-parser)
 
 Convert url query string to MongooseJs friendly query object including advanced filtering, sorting, population, string template, type casting and many more...
 
