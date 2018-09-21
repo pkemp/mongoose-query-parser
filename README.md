@@ -1,7 +1,7 @@
 # gb-mongoose-query-parser
 
 
-#### This is a fork from: [mongooose-quey-parser](https://github.com/leodinas-hao/mongoose-query-parser)
+#### This is a fork from: [mongoose-quey-parser](https://github.com/leodinas-hao/mongoose-query-parser)
 
 Convert url query string to MongooseJs friendly query object including advanced filtering, sorting, population, string template, type casting and many more...
 
@@ -16,7 +16,7 @@ The library is built highly inspired by [api-query-params](https://github.com/lo
 
 ## Installation
 ```
-npm install mongoose-query-parser --save
+npm install gb-mongoose-query-parser -S
 ```
 
 ## Usage
@@ -107,6 +107,7 @@ parser.parse('filter={"$or":[{"key1":"value1"},{"key2":"value2"}]}&name=Telstra'
 
 - Useful to populate sub-document(s) in query. Works with `MongooseJS`. Please see [Mongoose Populate](http://mongoosejs.com/docs/populate.html) for more details
 - Allows to populate only selected fields
+- Clean, leaner and easier syntax
 - Default operator key is `populate`
 
 ```js
@@ -122,8 +123,8 @@ parser.parse('populate=class,school.name');
 ```
 #### Deep Populate operators
 
-- Useful to populate nested document in arrrays. Works with `MongooseJS`. Please see [Mongoose Deep Populate](https://mongoosejs.com/docs/populate.html#deep-populate) for more details
-- Allows to populate only selected fields in the object
+- For more advanced usage (Deep field population) Please see [Mongoose Deep Populate](https://mongoosejs.com/docs/populate.html#deep-populate) for more details
+- Allows to populate multiple paths with multiple fields
 - Default operator key is `deepPopulate`
 - Can be used along with the populate option
 
@@ -139,6 +140,8 @@ parser.parse('deepPopulate={"path":"path",  "populate": { "path":"deepPath", "se
 //     }
 //  }
 //
+```
+
 
 
 #### Skip / Limit operators
@@ -346,7 +349,3 @@ parser.parse('key1=lowercase(VALUE)&key2=int(10.5)&key3=ABC');
 
 ## License
 MIT
-
-[npm-url]: https://www.npmjs.com/package/mongoose-query-parser
-[npm-image]: https://img.shields.io/npm/v/mongoose-query-parser.svg?style=flat-square
-[download-badge]: https://img.shields.io/npm/dm/mongoose-query-parser.svg?style=flat-square 
