@@ -10,6 +10,7 @@ export interface ParserOptions {
   // rename the keys
   selectKey?: string;
   populateKey?: string;
+  deepPopulateKey?: string;
   sortKey?: string;
   skipKey?: string;
   limitKey?: string;
@@ -23,6 +24,7 @@ export interface QueryOptions {
   skip?: number;
   select?: string | Object; // ie.: { field: 0, field2: 0 }
   populate?: string | Object; // path(s) to populate:  a space delimited string of the path names or array like: [{path: 'field1', select: 'p1 p2'}, ...]
+  deepPopulate?: string | Object; // path(s) to populate (as object):  {path:"anyPath", select:"anyField", populate:{path:"deepPath", select:"deepField"}};
 }
 
 export class MongooseQueryParser {
@@ -47,6 +49,7 @@ export class MongooseQueryParser {
     { operator: 'skip', method: this.castSkip, defaultKey: 'skip' },
     { operator: 'limit', method: this.castLimit, defaultKey: 'limit' },
     { operator: 'filter', method: this.castFilter, defaultKey: 'filter' },
+    { operator: 'deepPopulate', method: this.castDeepPopulate, defaultKey: 'deepPopulate' },
   ];
 
   constructor(private options: ParserOptions = {}) {
@@ -277,6 +280,27 @@ export class MongooseQueryParser {
         }
         return prev;
       }, []);
+  }
+
+  /**
+   * cast deep populate query to object like:
+   * populate={"path":"any", select="deep"}
+   * =>
+   * {path: 'field1', select: 'deep'}
+   * @param deepPopulate
+   */
+  private castDeepPopulate(deepPopulate: string) {
+    return this.parseDeepPopulate(deepPopulate)
+  }
+  private parseDeepPopulate(deepPopulate) {
+    try {
+      if (typeof deepPopulate === 'object') {
+        return deepPopulate;
+      }
+      return JSON.parse(deepPopulate);
+    } catch (err) {
+      throw new Error(`Invalid JSON string: ${deepPopulate}`);
+    }
   }
 
   /**
