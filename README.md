@@ -125,7 +125,7 @@ parser.parse('populate=class,school.name');
 - Useful to populate nested document in arrrays. Works with `MongooseJS`. Please see [Mongoose Deep Populate](https://mongoosejs.com/docs/populate.html#deep-populate) for more details
 - Allows to populate only selected fields in the object
 - Default operator key is `deepPopulate`
-- Can be used along with he populate option
+- Can be used along with the populate option
 
 ```js
 parser.parse('deepPopulate={"path":"path",  "populate": { "path":"deepPath", "select":"deepField"  }}');
