@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/leodinas-hao/mongoose-query-parser.git"
+    "url": "git+https://github.com/ivan-rangel/mongoose-query-parser.git"
   },
   "keywords": [
     "querystring",
@@ -23,17 +23,17 @@
     "parser",
     "url"
   ],
-  "author": "Leodinas Hao",
+  "author": "Ivan Rangel",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/leodinas-hao/mongoose-query-parser/issues"
+    "url": "https://github.com/ivan-rangel/mongoose-query-parser/issues"
   },
-  "homepage": "https://github.com/leodinas-hao/mongoose-query-parser#readme",
+  "homepage": "https://github.com/ivan-rangel/mongoose-query-parser#readme",
   "devDependencies": {
-    "@types/chai": "^4.1.4",
+    "@types/chai": "^4.1.5",
     "@types/lodash": "^4.14.116",
     "@types/mocha": "^5.2.5",
-    "@types/node": "^10.9.4",
+    "@types/node": "^10.10.1",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "mocha-typescript": "^1.1.17",
@@ -43,7 +43,7 @@
     "typescript": "^3.0.3"
   },
   "dependencies": {
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.11",
     "moment": "^2.22.2"
   }
 }
