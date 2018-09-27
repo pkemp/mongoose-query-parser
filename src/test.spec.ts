@@ -102,4 +102,21 @@ class Tester {
     parsed = parser.parse(qry, preDefined);
     assert.isNotNull(parsed.filter['$and'][0].status);
   }
+  @test('should parse lean')
+  parseLean() {
+    let parser = new MongooseQueryParser();
+    let qryTrue = 'lean=true';
+    let qryFalse = 'lean=false';
+    let qryUndefined = 'lean=';
+    let qryNotBoolean = 'lean=any';
+    let parsedTrue = parser.parse(qryTrue);
+    let parsedFalse = parser.parse(qryFalse);
+    let parsedUndefined = parser.parse(qryUndefined);
+    let parsedNotBoolean = parser.parse(qryNotBoolean);
+
+    assert.isTrue(parsedTrue.lean)
+    assert.isFalse(parsedFalse.lean)
+    assert.notNestedProperty(parsedUndefined, "lean")
+    assert.isFalse(parsedNotBoolean.lean)
+  }
 }

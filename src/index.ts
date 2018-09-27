@@ -15,6 +15,7 @@ export interface ParserOptions {
   skipKey?: string;
   limitKey?: string;
   filterKey?: string;
+  leanKey?: string
 }
 
 export interface QueryOptions {
@@ -25,6 +26,7 @@ export interface QueryOptions {
   select?: string | Object; // ie.: { field: 0, field2: 0 }
   populate?: string | Object; // path(s) to populate:  a space delimited string of the path names or array like: [{path: 'field1', select: 'p1 p2'}, ...]
   deepPopulate?: string | Object; // path(s) to populate (as object):  {path:"anyPath", select:"anyField", populate:{path:"deepPath", select:"deepField"}};
+  lean?: boolean
 }
 
 export class MongooseQueryParser {
@@ -50,6 +52,7 @@ export class MongooseQueryParser {
     { operator: 'limit', method: this.castLimit, defaultKey: 'limit' },
     { operator: 'filter', method: this.castFilter, defaultKey: 'filter' },
     { operator: 'deepPopulate', method: this.castDeepPopulate, defaultKey: 'deepPopulate' },
+    { operator: 'lean', method: this.castLean, defaultKey: 'lean' },
   ];
 
   constructor(private options: ParserOptions = {}) {
@@ -351,6 +354,16 @@ export class MongooseQueryParser {
    */
   private castLimit(limit: string) {
     return Number(limit);
+  }
+  /**
+   * cast lean option like
+   * lean=true
+   * =>
+   * {lean: true}
+   * @param lean
+   */
+  private castLean(lean: string) {
+    return lean === "true" ? true : false;
   }
 
   /**

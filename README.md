@@ -3,13 +3,13 @@
 
 #### This is a fork from: [mongoose-quey-parser](https://github.com/leodinas-hao/mongoose-query-parser)
 
-Convert url query string to MongooseJs friendly query object including advanced filtering, sorting, population, string template, type casting and many more...
+Convert url query string to MongooseJs friendly query object including advanced filtering, sorting, lean, population, string template, type casting and many more...
 
 The library is built highly inspired by [api-query-params](https://github.com/loris/api-query-params)
 
 ## Features
 
-- Supports the most of MongoDB operators (`$in`, `$regexp`, `$exists`) and features including skip, sort, limit & MongooseJS population
+- Supports the most of MongoDB operators (`$in`, `$regexp`, `$exists`) and features including skip, sort, limit, lean & MongooseJS population
 - Auto type casting of `Number`, `RegExp`, `Date`, `Boolean` and `null`
 - String templates/predefined queries (i.e. `firstName=${my_vip_list}`)
 - Allows customization of keys and options in query string
@@ -38,9 +38,10 @@ parser.parse(query: string, predefined: any) : QueryOptions
 - `QueryOptions`: object contains the following properties:
     - `filter` which contains the query criteria
     - `populate` which contains the query population. Please see [Mongoose Populate](http://mongoosejs.com/docs/populate.html) for more details
-    - `deepPopulate` which contains the query population Oobject. Please see [Mongoose Deep Popute](https://mongoosejs.com/docs/populate.html#deep-populate) for more details
+    - `deepPopulate` which contains the query population Oobject. Please see [Mongoose Deep Populate](https://mongoosejs.com/docs/populate.html#deep-populate) for more details
     - `select` which contains the query projection
-    - `sort`, `skip`, `limit` which contains the cursor modifiers for paging purpose
+    - `lean` which contains the definition of the query records format
+    - `sort`, `skip`, `limit`, which contains the cursor modifiers for paging purpose
 
 ### Example
 ```js
@@ -51,13 +52,14 @@ const predefined = {
   vip: { name: { $in: ['Google', 'Microsoft', 'NodeJs'] } },
   sentStatus: 'sent'
 };
-const parsed = parser.parse('${vip}&status=${sentStatus}&timestamp>2017-10-01&author.firstName=/john/i&limit=100&skip=50&sort=-timestamp&select=name&populate=children.firstName,children.lastName', predefined);
+const parsed = parser.parse('${vip}&status=${sentStatus}&timestamp>2017-10-01&author.firstName=/john/i&limit=100&skip=50&sort=-timestamp&select=name&populate=children.firstName,children.lastName&lean=true', predefined);
 {
   select: { name : 1 },
   populate: [{ path: 'children', select: 'firstName lastName' }],
   sort: { timestamp: -1 },
   skip: 50,
   limit: 100,
+  lean: true,
   filter: {
     name: {{ $in: ['Google', 'Microsoft', 'NodeJs'] }},
     status: 'sent',
@@ -190,6 +192,18 @@ parser.parse('sort=-points,createdAt');
 //    sort: { points: -1, createdAt: 1 }
 //  }
 ```
+#### Lean operator
+
+- Useful to get leaner records
+- Default operator key is `lean`
+- If lean is set true, it will return `true`, otherwise it will retun `false`. If not value provided, the lean operator wil be omitted from the parsed object.
+
+```js
+parser.parse('lean=true');
+//  {
+//    lean: true
+//  }
+```
 
 #### Keys with multiple values
 
@@ -269,6 +283,7 @@ The following options are useful to change the operator default keys:
 
 - `populateKey`: custom populate operator key (default is `populate`)
 - `skipKey`: custom skip operator key (default is `skip`)
+- `leanKey`: custom lean operator key (default is `lean`)
 - `limitKey`: custom limit operator key (default is `limit`)
 - `selectKey`: custom select operator key (default is `select`)
 - `sortKey`: custom sort operator key (default is `sort`)
@@ -278,7 +293,8 @@ The following options are useful to change the operator default keys:
 ```js
 const parser = new MongooseQueryParser({
   limitKey: 'max',
-  skipKey: 'offset'
+  skipKey: 'offset',
+  leanKey: 'planeRecords'
 });
 parser.parse('organizationId=123&offset=10&max=125');
 // {
@@ -286,7 +302,8 @@ parser.parse('organizationId=123&offset=10&max=125');
 //     organizationId: 123,
 //   },
 //   skip: 10,
-//   limit: 125
+//   limit: 125,
+//   lean: true
 // }
 ```
 
