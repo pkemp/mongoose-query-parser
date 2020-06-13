@@ -35,7 +35,7 @@ export class MongooseQueryParser {
   private readonly builtInCaster = {
     string: val => String(val),
     date: val => {
-      const m = Moment(val, this.options.dateFormat);
+      const m = Moment.utc(val, this.options.dateFormat);
       if (m.isValid()) {
         return m.toDate();
       } else {
@@ -149,7 +149,7 @@ export class MongooseQueryParser {
     }
 
     // Match dates
-    let m = Moment(value, options.dateFormat);
+    let m = Moment.utc(value, options.dateFormat);
     if (m.isValid()) {
       return m.toDate();
     }
