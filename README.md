@@ -1,11 +1,13 @@
-# gb-mongoose-query-parser
+# mongoose-query-parser-ng
 
 
-#### This is a fork from: [mongoose-quey-parser](https://github.com/leodinas-hao/mongoose-query-parser)
+#### This is a fork from: [mongoose-query-parser](https://github.com/leodinas-hao/mongoose-query-parser)
 
 Convert url query string to MongooseJs friendly query object including advanced filtering, sorting, lean, population, string template, type casting and many more...
 
 The library is built highly inspired by [api-query-params](https://github.com/loris/api-query-params)
+
+Deep Population by [Ivan Rangel](https://github.com/ivan-rangel/mongoose-query-parser)
 
 ## Features
 
@@ -16,7 +18,7 @@ The library is built highly inspired by [api-query-params](https://github.com/lo
 
 ## Installation
 ```
-npm install gb-mongoose-query-parser -S
+npm install mongoose-query-parser-ng -S
 ```
 
 ## Usage
