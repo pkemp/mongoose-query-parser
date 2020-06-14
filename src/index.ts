@@ -4,7 +4,8 @@ import * as _ from 'lodash';
 
 export interface ParserOptions {
   dateFormat?: any;
-  blacklist?: string[]; // list of fields should not be in filter
+  whitelist?: string[]; // list of fields allowed to be in the filter
+  blacklist?: string[]; // list of fields disallowed to be in the filter
   casters?: { [key: string]: (val: string) => any };
   castParams?: { [key: string]: string };
   // rename the keys
@@ -167,6 +168,7 @@ export class MongooseQueryParser {
         const [, prefix, key, op, value] = join.match(/(!?)([^><!=]+)([><]=?|!?=|)(.*)/);
         return { prefix, key, op: this.parseOperator(op), value: this.parseValue(value, key) };
       })
+      .filter(({ key }) => !options.whitelist || options.whitelist.indexOf(key) > -1)
       .filter(({ key }) => options.blacklist.indexOf(key) === -1)
       .reduce((result, { prefix, key, op, value }) => {
         if (!result[key]) {

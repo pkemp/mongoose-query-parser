@@ -341,6 +341,21 @@ parser.parse('id=e9117e5c-c405-489b-9c12-d9f398c7a112&apiKey=foobar', {
 // }
 ```
 
+#### Whitelist
+
+For more strict specification of allowed fields in `filter` object you can use the whitelist option.
+
+```js
+parser.parse('firstName=Fred&middleName=Erick&password=test', {
+  whitelist: ['firstName', 'lastName']
+});
+// {
+//   filter: {
+//     firstName: 'Fred',
+//   }
+// }
+```
+
 #### Add custom casting functions
 
 You can specify you own casting functions to apply to query parameter values, either by explicitly wrapping the value in URL with your custom function name (See example below) or by implicitly mapping a key to a function

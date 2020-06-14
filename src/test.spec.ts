@@ -119,4 +119,14 @@ class Tester {
     assert.notNestedProperty(parsedUndefined, "lean")
     assert.isFalse(parsedNotBoolean.lean)
   }
+
+  @test('should parse only whitelist fields')
+  parseWhitelist() {
+    const parser = new MongooseQueryParser({ whitelist: ['firstName', 'lastName']});
+    const parsed = parser.parse('firstName=William&middleName=Frederick&lastName=Durst&password=secret');
+    assert.isOk(parsed.filter['firstName'] == 'William');
+    assert.isUndefined(parsed.filter['middleName']);
+    assert.isOk(parsed.filter['lastName'] == 'Durst');
+    assert.isUndefined(parsed.filter['password']);
+  }
 }
