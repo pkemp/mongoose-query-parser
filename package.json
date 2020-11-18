@@ -1,6 +1,6 @@
 {
   "name": "mongoose-query-parser-ng",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Convert url query string to MongooseJs friendly query object including advanced filtering, sorting, population, deep population, string template, type casting and many more...",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ivan-rangel/mongoose-query-parser.git"
+    "url": "git+https://github.com/pkemp/mongoose-query-parser.git"
   },
   "keywords": [
     "querystring",
@@ -30,20 +30,19 @@
   },
   "homepage": "https://github.com/pkemp/mongoose-query-parser#readme",
   "devDependencies": {
-    "@types/chai": "^4.1.5",
+    "@testdeck/mocha": "^0.1.0",
     "@types/lodash": "^4.14.116",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.11.2",
     "chai": "^4.2.0",
-    "mocha": "^8.0.1",
-    "mocha-typescript": "^1.1.17",
+    "mocha": "^8.2.1",
     "rimraf": "^2.6.2",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "typescript": "^3.1.1"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "moment": "^2.22.2"
   }
 }

@@ -181,7 +181,7 @@ export class MongooseQueryParser {
           result[key][op] = prefix !== '!';
         } else if (op === '$eq') {
           result[key] = value;
-        } else if (op === '$ne' && typeof value === 'object' && value!== null) {
+        } else if (op === '$ne' && typeof value === 'object' && value !== null) {
           result[key].$not = value;
         } else {
           result[key][op] = value;
